@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+body{
+    width: 70%;
+    background-color: #000000;
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Ubuntu', sans-serif;
+    border: 1px solid white;
+}
+
+h1{
+    color: #ffffff;
+}
+
+.input{
+    width: 450px;
+    height: 50px;
+    margin: 5px;
+    padding: 0px 20px;
+    outline: none;
+    border: 0;
+    border-radius: 10px;
+    background-color: #ffffff;
+    font-size: 18px;
+}
+
+.boton-agregar{
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    border: 0;
+    border-radius: 10px;
+    font-size: 15px;
+    color:#ffffff;
+    background-color: rgb(255,6,46);
+}
+
+.boton-agregar:hover{
+    opacity: 0.9;
+}
