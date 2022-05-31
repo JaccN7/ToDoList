@@ -21,24 +21,21 @@ function chequearInput() {
     }
 }
 
-function limpiarInput(){
+function limpiarInput() {
     inputPrincipal = document.querySelector(".input").value = "";
 }
 
 class Item {
     constructor(inputPrincipal) {
-        this.inputPrincipal = inputPrincipal
-        console.log(this.inputPrincipal)
+        this.inputPrincipal = inputPrincipal;
     };
     crearDiv(tarea) {
-        let inputItem = tarea;
         //Crear elemento input
-        console.log(inputItem)
-        inputItem = document.createElement("input");
+        let inputItem = document.createElement("input");
         inputItem.setAttribute("type", "text");
         inputItem.setAttribute("disabled", true);
         inputItem.classList.add("item-input");
-        console.log(inputItem)
+        inputItem.value = tarea;
 
         //Crear DIV
         let nuevoDiv = document.createElement("div");
@@ -47,15 +44,14 @@ class Item {
 
         //Crear boton editar
         let botonEditar = document.createElement("button");
-        botonEditar.innerHTML = "<i class='fas fa-lock'></i>"
+        botonEditar.innerHTML = "<i class='fas fa-lock'></i>";
         botonEditar.classList.add("boton-editar");
-        console.log(botonEditar);
+        botonEditar.setAttribute("id", "boton-editar");
 
         //Crear boton eliminar
         let botonRemover = document.createElement("button");
-        botonRemover.innerHTML = "<i class='fas fa-trash'></i>"
+        botonRemover.innerHTML = "<i class='fas fa-trash'></i>";
         botonRemover.classList.add("boton-remover");
-        console.log(botonRemover);
 
         //Agregar elementos al DIV
         nuevoDiv.appendChild(inputItem);
@@ -64,6 +60,21 @@ class Item {
 
         //Agregar DIV al container
         contenedor.appendChild(nuevoDiv);
-        
+
+        botonEditar.addEventListener("click", function () {
+            if (inputItem.disabled == false) {
+                inputItem.setAttribute("disabled", true);
+                botonEditar.innerHTML = "<i class='fas fa-lock'></i>";
+            } else {
+                inputItem.removeAttribute("disabled");
+                botonEditar.innerHTML = "<i class='fas fa-lock-open'></i>";
+            }
+        })
+
+        botonRemover.addEventListener("click", function () {
+            nuevoDiv.removeChild(inputItem);
+            nuevoDiv.removeChild(botonEditar);
+            nuevoDiv.removeChild(botonRemover);
+        })
     }
 }
