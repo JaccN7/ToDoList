@@ -1,28 +1,33 @@
 //Variables
-let inputPrincipal;
+let inputPrincipal = document.querySelector(".input");
 let botonAgregar = document.querySelector(".boton-agregar");
-let contenedor = document.querySelector(".container")
+let contenedor = document.querySelector(".container");
+let aviso = document.querySelector(".aviso");
 
-botonAgregar.addEventListener("click", function () {
+//Event listener para enter y click
+botonAgregar.addEventListener("click", () => {
     chequearInput();
 })
 
-function chequearInput() {
-    inputPrincipal = document.querySelector(".input").value;
-    console.log(inputPrincipal)
-    if (inputPrincipal.length !== 0) {
-        let objItem = new Item(inputPrincipal);
-        console.log(objItem)
-        objItem.crearDiv(inputPrincipal);
-        inputPrincipal.innerHTML = "";
+inputPrincipal.addEventListener("keypress", (e) => {
+    if (e.key === 'Enter') {
+        chequearInput();
+    }
+})
+
+const chequearInput = () => {
+    if (inputPrincipal.value) {
+        let objItem = new Item(inputPrincipal.value);
+        objItem.crearDiv(inputPrincipal.value);
+        aviso.textContent = ""
         limpiarInput();
     } else {
-        console.log("No se ha ingresado una tarea")
+        aviso.textContent = "Aún no has ingresado una nueva tarea"
     }
 }
 
-function limpiarInput() {
-    inputPrincipal = document.querySelector(".input").value = "";
+const limpiarInput = () => {
+    inputPrincipal.value = "";
 }
 
 class Item {
@@ -40,13 +45,11 @@ class Item {
         //Crear DIV
         let nuevoDiv = document.createElement("div");
         nuevoDiv.classList.add("item");
-        console.log(nuevoDiv)
 
         //Crear boton editar
         let botonEditar = document.createElement("button");
         botonEditar.innerHTML = "<i class='fas fa-lock'></i>";
         botonEditar.classList.add("boton-editar");
-        botonEditar.setAttribute("id", "boton-editar");
 
         //Crear boton eliminar
         let botonRemover = document.createElement("button");
@@ -61,17 +64,19 @@ class Item {
         //Agregar DIV al container
         contenedor.appendChild(nuevoDiv);
 
-        botonEditar.addEventListener("click", function () {
+        botonEditar.addEventListener("click", () => {
             if (inputItem.disabled == false) {
                 inputItem.setAttribute("disabled", true);
+                botonEditar.style.color = "#62d0ff";
                 botonEditar.innerHTML = "<i class='fas fa-lock'></i>";
             } else {
                 inputItem.removeAttribute("disabled");
                 botonEditar.innerHTML = "<i class='fas fa-lock-open'></i>";
+                botonEditar.style.color = "rgb(255, 6, 46)";
             }
         })
 
-        botonRemover.addEventListener("click", function () {
+        botonRemover.addEventListener("click", () => {
             nuevoDiv.removeChild(inputItem);
             nuevoDiv.removeChild(botonEditar);
             nuevoDiv.removeChild(botonRemover);
